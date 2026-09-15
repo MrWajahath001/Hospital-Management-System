@@ -1,10 +1,9 @@
-﻿# =====================
+# =====================
 # Backend (Spring Boot)
 # =====================
 backend/target/
 backend/data/
 backend/.mvn/wrapper/maven-wrapper.jar
-backend/src/main/resources/application.properties
 *.log
 
 # =====================
