@@ -91,7 +91,7 @@ export class LoginComponent {
                 if (error.status === 401 || error.status === 403) {
                     errorMessage = 'Invalid username or password';
                 } else if (error.status === 0) {
-                    errorMessage = 'Cannot connect to server. Please check if backend is running on port 8080.';
+                    errorMessage = 'Server is starting up (free tier cold start). Please wait 30 seconds and try again.';
                 } else if (error.status === 500) {
                     errorMessage = 'Server error. Please try again or contact administrator.';
                 } else if (error.error?.message) {
