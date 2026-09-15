@@ -1,0 +1,143 @@
+<div class="dashboard-content">
+    <div class="header-row">
+        <h1 class="page-title">Patient Dashboard</h1>
+    </div>
+
+    <div class="main-grid">
+        <mat-card class="action-card">
+            <mat-card-header>
+                <mat-icon mat-card-avatar color="primary">event</mat-icon>
+                <mat-card-title>Book Appointment</mat-card-title>
+                <mat-card-subtitle>Schedule a visit</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <form [formGroup]="bookingForm" (ngSubmit)="bookAppointment()">
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Select Doctor</mat-label>
+                        <mat-select formControlName="doctorId" required>
+                            <mat-option *ngFor="let doc of doctors" [value]="doc.id">
+                                {{doc.fullName}} - {{doc.specialization}} ({{doc.departmentName}})
+                            </mat-option>
+                        </mat-select>
+                        <mat-icon matSuffix>local_hospital</mat-icon>
+                        <mat-error *ngIf="bookingForm.get('doctorId')?.hasError('required')">
+                            Please select a doctor
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Date & Time</mat-label>
+                        <input matInput type="datetime-local" formControlName="appointmentTime" required [min]="minDate"
+                            #dateTimeInput>
+                        <mat-icon matSuffix (click)="dateTimeInput.showPicker()" style="cursor: pointer;">
+                            schedule
+                        </mat-icon>
+                        <mat-error *ngIf="bookingForm.get('appointmentTime')?.hasError('required')">
+                            Please select date and time
+                        </mat-error>
+                        <mat-error *ngIf="bookingForm.get('appointmentTime')?.hasError('futureOrPresent')">
+                            Appointment must be scheduled for present or future time
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Notes</mat-label>
+                        <textarea matInput formControlName="notes" rows="3"
+                            placeholder="Reason for visit..."></textarea>
+                        <mat-icon matSuffix>edit</mat-icon>
+                    </mat-form-field>
+
+                    <button mat-raised-button color="primary" type="submit" class="full-width-btn booking-button">
+                        <mat-icon>bookmark_add</mat-icon> Book Appointment
+                    </button>
+                </form>
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card class="history-card">
+            <mat-card-header>
+                <mat-icon mat-card-avatar color="accent">history</mat-icon>
+                <mat-card-title>My Appointment History</mat-card-title>
+                <span class="spacer"></span>
+                <button mat-button color="warn" (click)="clearHistory()" *ngIf="appointments.length > 0">
+                    <mat-icon>delete_sweep</mat-icon> Clear History
+                </button>
+            </mat-card-header>
+            <mat-card-content>
+                <mat-nav-list>
+                    <mat-list-item *ngFor="let appt of appointments" class="history-item">
+                        <mat-icon matListItemIcon>event_note</mat-icon>
+                        <div matListItemTitle>
+                            {{appt.doctor?.user?.fullName}}
+                            <span class="status-badge" [class]="appt.status.toLowerCase()">{{appt.status}}</span>
+                        </div>
+                        <div matListItemLine>
+                            {{appt.appointmentTime | date:'medium'}}
+                        </div>
+                        <button mat-icon-button color="warn" (click)="cancelAppointment(appt.id)" matListItemMeta
+                            *ngIf="appt.status === 'PENDING'" matTooltip="Cancel Appointment">
+                            <mat-icon>delete_forever</mat-icon>
+                        </button>
+                    </mat-list-item>
+                    <div *ngIf="appointments.length === 0" class="no-data">
+                        No history available.
+                    </div>
+                </mat-nav-list>
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card class="medical-records-card">
+            <mat-card-header>
+                <mat-icon mat-card-avatar color="warn">description</mat-icon>
+                <mat-card-title>My Medical Records</mat-card-title>
+                <mat-card-subtitle>Prescriptions from Doctors</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <mat-accordion>
+                    <mat-expansion-panel *ngFor="let record of medicalRecords" class="record-panel">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <mat-icon class="record-icon">medical_services</mat-icon>
+                                <span class="record-title">{{record.doctorName || 'Doctor'}}</span>
+                            </mat-panel-title>
+                            <mat-panel-description>
+                                {{record.recordDate | date:'mediumDate'}}
+                                <span class="specialization-badge">{{record.doctorSpecialization}}</span>
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+
+                        <div class="record-details">
+                            <div class="record-section" *ngIf="record.diagnosis">
+                                <h4><mat-icon>assignment</mat-icon> Diagnosis</h4>
+                                <p>{{record.diagnosis}}</p>
+                            </div>
+
+                            <div class="record-section" *ngIf="record.prescription">
+                                <h4><mat-icon>medication</mat-icon> Prescription</h4>
+                                <p class="prescription-text">{{record.prescription}}</p>
+                            </div>
+
+                            <div class="record-footer">
+                                <mat-chip-set>
+                                    <mat-chip>
+                                        <mat-icon>person</mat-icon>
+                                        Dr. {{record.doctorName}}
+                                    </mat-chip>
+                                    <mat-chip>
+                                        <mat-icon>calendar_today</mat-icon>
+                                        {{record.recordDate | date:'short'}}
+                                    </mat-chip>
+                                </mat-chip-set>
+                            </div>
+                        </div>
+                    </mat-expansion-panel>
+                </mat-accordion>
+
+                <div *ngIf="medicalRecords.length === 0" class="no-data">
+                    <mat-icon>folder_open</mat-icon>
+                    <p>No medical records available yet.</p>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

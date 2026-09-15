@@ -1,0 +1,128 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f0f7ff"/>
+      <stop offset="100%" stop-color="#e3f2fd"/>
+    </linearGradient>
+    <linearGradient id="primaryGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1976d2"/>
+      <stop offset="100%" stop-color="#0d47a1"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00acc1"/>
+      <stop offset="100%" stop-color="#00838f"/>
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#f8f9fa"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#1976d2" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="800" height="600" rx="24" fill="url(#bgGrad)"/>
+
+  <!-- Decorative Background Circles -->
+  <circle cx="120" cy="100" r="70" fill="#bbdefb" opacity="0.4"/>
+  <circle cx="700" cy="480" r="90" fill="#b2ebf2" opacity="0.4"/>
+  <circle cx="400" cy="280" r="180" fill="#ffffff" opacity="0.7"/>
+
+  <!-- Pulse Line Decoration -->
+  <path d="M 50 300 L 140 300 L 160 260 L 180 340 L 200 280 L 220 310 L 230 300 L 320 300" 
+        stroke="#42a5f5" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.5"/>
+  <path d="M 480 300 L 570 300 L 590 250 L 610 350 L 630 280 L 650 310 L 660 300 L 750 300" 
+        stroke="#26c6da" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.5"/>
+
+  <!-- Main Illustration: 3 Doctors / Healthcare Heroes -->
+  <!-- Center Doctor (Lead Physician) -->
+  <g filter="url(#shadow)">
+    <!-- Coat Shadow -->
+    <ellipse cx="400" cy="460" rx="90" ry="14" fill="#cfd8dc" opacity="0.5"/>
+    <!-- Body / Coat -->
+    <path d="M 330 460 L 340 300 Q 360 280 400 280 Q 440 280 460 300 L 470 460 Z" fill="#ffffff"/>
+    <!-- Inner Scrubs -->
+    <path d="M 375 285 L 400 340 L 425 285 Z" fill="#1976d2"/>
+    <!-- Stethoscope -->
+    <path d="M 380 290 Q 370 350 395 380 Q 405 380 420 350 Q 425 320 420 290" 
+          stroke="#455a64" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <circle cx="395" cy="380" r="7" fill="#90a4ae"/>
+    <!-- Collar -->
+    <path d="M 355 285 L 375 350 L 400 350 L 385 285 Z" fill="#f5f5f5"/>
+    <path d="M 445 285 L 425 350 L 400 350 L 415 285 Z" fill="#f5f5f5"/>
+    <!-- Head & Hair -->
+    <ellipse cx="400" cy="245" rx="36" ry="42" fill="#ffcc80"/>
+    <path d="M 364 235 Q 400 190 436 235 Q 436 210 400 205 Q 364 210 364 235 Z" fill="#37474f"/>
+    <!-- Glasses -->
+    <circle cx="388" cy="245" r="10" stroke="#455a64" stroke-width="2.5" fill="none"/>
+    <circle cx="412" cy="245" r="10" stroke="#455a64" stroke-width="2.5" fill="none"/>
+    <line x1="398" y1="245" x2="402" y2="245" stroke="#455a64" stroke-width="2.5"/>
+    <!-- Smile -->
+    <path d="M 393 265 Q 400 272 407 265" stroke="#e65100" stroke-width="2" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- Left Doctor (Female Specialist) -->
+  <g filter="url(#shadow)">
+    <!-- Coat Shadow -->
+    <ellipse cx="270" cy="460" rx="75" ry="12" fill="#cfd8dc" opacity="0.4"/>
+    <!-- Body / Coat -->
+    <path d="M 215 460 L 225 320 Q 245 300 270 300 Q 295 300 315 320 L 325 460 Z" fill="#ffffff"/>
+    <!-- Inner Scrubs -->
+    <path d="M 255 305 L 270 345 L 285 305 Z" fill="#00acc1"/>
+    <!-- Head & Hair -->
+    <path d="M 235 255 Q 230 320 250 330 Q 270 290 270 290 Q 270 290 290 330 Q 310 320 305 255 Z" fill="#5d4037"/>
+    <ellipse cx="270" cy="260" rx="30" ry="36" fill="#ffe0b2"/>
+    <path d="M 240 250 Q 270 215 300 250 Q 295 220 270 220 Q 245 220 240 250 Z" fill="#5d4037"/>
+    <!-- Smile -->
+    <path d="M 264 278 Q 270 284 276 278" stroke="#d84315" stroke-width="2" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- Right Doctor (Male Specialist / Surgeon) -->
+  <g filter="url(#shadow)">
+    <!-- Coat Shadow -->
+    <ellipse cx="530" cy="460" rx="75" ry="12" fill="#cfd8dc" opacity="0.4"/>
+    <!-- Body / Coat -->
+    <path d="M 475 460 L 485 320 Q 505 300 530 300 Q 555 300 575 320 L 585 460 Z" fill="#ffffff"/>
+    <!-- Inner Scrubs -->
+    <path d="M 515 305 L 530 345 L 545 305 Z" fill="#1e88e5"/>
+    <!-- Head & Hair -->
+    <ellipse cx="530" cy="260" rx="32" ry="38" fill="#f5d0a9"/>
+    <path d="M 498 248 Q 530 215 562 248 Q 562 225 530 220 Q 498 225 498 248 Z" fill="#212121"/>
+    <!-- Smile -->
+    <path d="M 524 278 Q 530 284 536 278" stroke="#bf360c" stroke-width="2" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- Medical Cross Badge Center Top -->
+  <g filter="url(#shadow)" transform="translate(365, 80)">
+    <rect width="70" height="70" rx="20" fill="url(#primaryGrad)"/>
+    <!-- Plus Icon -->
+    <rect x="29" y="16" width="12" height="38" rx="4" fill="#ffffff"/>
+    <rect x="16" y="29" width="38" height="12" rx="4" fill="#ffffff"/>
+  </g>
+
+  <!-- Floating Metric Badges -->
+  <!-- Left Badge: 24/7 Care -->
+  <g filter="url(#shadow)" transform="translate(90, 390)">
+    <rect width="150" height="60" rx="16" fill="url(#cardGrad)"/>
+    <circle cx="35" cy="30" r="18" fill="#e8f5e9"/>
+    <path d="M 35 20 L 35 30 L 42 34" stroke="#2e7d32" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <text x="65" y="27" font-family="'Roboto', sans-serif" font-size="14" font-weight="700" fill="#2c3e50">24/7 Support</text>
+    <text x="65" y="44" font-family="'Roboto', sans-serif" font-size="11" fill="#78909c">Always Available</text>
+  </g>
+
+  <!-- Right Badge: 100% Quality -->
+  <g filter="url(#shadow)" transform="translate(560, 390)">
+    <rect width="150" height="60" rx="16" fill="url(#cardGrad)"/>
+    <circle cx="35" cy="30" r="18" fill="#e3f2fd"/>
+    <path d="M 28 30 L 33 35 L 42 25" stroke="#1976d2" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="65" y="27" font-family="'Roboto', sans-serif" font-size="14" font-weight="700" fill="#2c3e50">Certified Care</text>
+    <text x="65" y="44" font-family="'Roboto', sans-serif" font-size="11" fill="#78909c">Top Specialists</text>
+  </g>
+
+  <!-- Bottom Banner -->
+  <rect x="200" y="515" width="400" height="46" rx="23" fill="#ffffff" filter="url(#shadow)"/>
+  <text x="400" y="544" font-family="'Roboto', sans-serif" font-size="16" font-weight="700" fill="#1976d2" text-anchor="middle" letter-spacing="0.5">
+    ✦ Trusted Healthcare Professionals ✦
+  </text>
+</svg>

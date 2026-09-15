@@ -1,0 +1,486 @@
+/* ===================================
+   Global Styles - Hospital Management System
+   =================================== */
+
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+/* ===================================
+   CSS Custom Properties (Design System)
+   =================================== */
+:root {
+    /* Primary Colors */
+    --primary-color: #1976d2;
+    --primary-light: #42a5f5;
+    --primary-dark: #1565c0;
+
+    /* Accent Colors */
+    --accent-color: #00acc1;
+    --accent-light: #26c6da;
+    --accent-dark: #00838f;
+
+    /* Status Colors */
+    --success-color: #4caf50;
+    --warning-color: #ff9800;
+    --error-color: #f44336;
+    --info-color: #2196f3;
+
+    /* Neutral Colors */
+    --background-color: #f5f7fa;
+    --surface-color: #ffffff;
+    --text-primary: #2c3e50;
+    --text-secondary: #7f8c8d;
+    --text-disabled: #bdc3c7;
+    --border-color: #e0e0e0;
+    --divider-color: #eceff1;
+
+    /* Shadows */
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.08);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
+
+    /* Spacing */
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+    --spacing-xl: 32px;
+    --spacing-2xl: 48px;
+
+    /* Border Radius */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+    --radius-full: 9999px;
+
+    /* Transitions */
+    --transition-fast: 150ms ease-in-out;
+    --transition-base: 250ms ease-in-out;
+    --transition-slow: 350ms ease-in-out;
+}
+
+/* ===================================
+   Reset & Base Styles
+   =================================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--text-primary);
+    background-color: var(--background-color);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ===================================
+   Typography
+   =================================== */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 500;
+    line-height: 1.2;
+    margin-bottom: var(--spacing-md);
+    color: var(--text-primary);
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+h2 {
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+h3 {
+    font-size: 1.75rem;
+}
+
+h4 {
+    font-size: 1.5rem;
+}
+
+h5 {
+    font-size: 1.25rem;
+}
+
+h6 {
+    font-size: 1rem;
+}
+
+p {
+    margin-bottom: var(--spacing-md);
+    color: var(--text-secondary);
+}
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+a:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
+/* ===================================
+   Scrollbar Styling
+   =================================== */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--background-color);
+}
+
+::-webkit-scrollbar-thumb {
+    background: #cbd5e0;
+    border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #a0aec0;
+}
+
+/* ===================================
+   Utility Classes
+   =================================== */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-lg);
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.mt-sm {
+    margin-top: var(--spacing-sm);
+}
+
+.mt-md {
+    margin-top: var(--spacing-md);
+}
+
+.mt-lg {
+    margin-top: var(--spacing-lg);
+}
+
+.mb-sm {
+    margin-bottom: var(--spacing-sm);
+}
+
+.mb-md {
+    margin-bottom: var(--spacing-md);
+}
+
+.mb-lg {
+    margin-bottom: var(--spacing-lg);
+}
+
+.p-sm {
+    padding: var(--spacing-sm);
+}
+
+.p-md {
+    padding: var(--spacing-md);
+}
+
+.p-lg {
+    padding: var(--spacing-lg);
+}
+
+.shadow-sm {
+    box-shadow: var(--shadow-sm);
+}
+
+.shadow-md {
+    box-shadow: var(--shadow-md);
+}
+
+.shadow-lg {
+    box-shadow: var(--shadow-lg);
+}
+
+.rounded {
+    border-radius: var(--radius-md);
+}
+
+.rounded-lg {
+    border-radius: var(--radius-lg);
+}
+
+.rounded-full {
+    border-radius: var(--radius-full);
+}
+
+/* ===================================
+   Animation Classes
+   =================================== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn var(--transition-base) ease-out;
+}
+
+.slide-in {
+    animation: slideIn var(--transition-base) ease-out;
+}
+
+/* ===================================
+   Material Design Overrides
+   =================================== */
+.mat-mdc-card {
+    border-radius: var(--radius-lg) !important;
+    box-shadow: var(--shadow-md) !important;
+    transition: box-shadow var(--transition-base), transform var(--transition-base) !important;
+}
+
+/* Only apply lift hover to explicitly interactive/action cards, not tables or stat cards */
+.mat-mdc-card.interactive-card:hover {
+    box-shadow: var(--shadow-lg) !important;
+    transform: translateY(-2px);
+}
+
+.mat-mdc-button,
+.mat-mdc-raised-button {
+    border-radius: var(--radius-md) !important;
+    text-transform: none !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.5px !important;
+    transition: all var(--transition-fast) !important;
+}
+
+.mat-mdc-raised-button:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md) !important;
+}
+
+.mat-mdc-form-field {
+    width: 100%;
+}
+
+.mat-mdc-table {
+    box-shadow: var(--shadow-sm) !important;
+    border-radius: var(--radius-md) !important;
+    overflow: hidden;
+}
+
+/* ===================================
+   DROPDOWN FIX - SOLID, NON-TRANSPARENT
+   =================================== */
+.mat-mdc-select-panel,
+.cdk-overlay-pane .mat-mdc-select-panel {
+    background-color: #ffffff !important;
+    opacity: 1 !important;
+    border: 3px solid #667eea !important;
+    border-radius: 8px !important;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4) !important;
+    margin-top: 8px !important;
+    max-height: 400px !important;
+    overflow-y: auto !important;
+}
+
+.mat-mdc-option,
+.mat-mdc-select-panel .mat-mdc-option {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    font-size: 17px !important;
+    font-weight: 600 !important;
+    padding: 18px 24px !important;
+    min-height: 60px !important;
+    border-bottom: 2px solid #e0e0e0 !important;
+    opacity: 1 !important;
+    line-height: 1.6 !important;
+}
+
+.mat-mdc-option:last-child {
+    border-bottom: none !important;
+}
+
+.mat-mdc-option:hover,
+.mat-mdc-option.mat-mdc-option-active {
+    background-color: #e8eeff !important;
+    color: #667eea !important;
+}
+
+.mat-mdc-option.mdc-list-item--selected {
+    background-color: #d0dcff !important;
+    color: #4c5fd5 !important;
+    font-weight: 700 !important;
+}
+
+.mat-mdc-option .mdc-list-item__primary-text {
+    color: inherit !important;
+    font-weight: inherit !important;
+    opacity: 1 !important;
+}
+
+/* Overlay backdrop */
+.cdk-overlay-backdrop {
+    background-color: rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Ensure overlay container is on top */
+.cdk-overlay-container {
+    z-index: 1000 !important;
+}
+
+.cdk-overlay-pane {
+    z-index: 1001 !important;
+}
+
+/* ===================================
+   Responsive Design
+   =================================== */
+@media (max-width: 768px) {
+    html {
+        font-size: 14px;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-size: 1.75rem;
+    }
+
+    h3 {
+        font-size: 1.5rem;
+    }
+
+    .container {
+        padding: 0 var(--spacing-md);
+    }
+}
+
+@media (max-width: 480px) {
+    html {
+        font-size: 13px;
+    }
+
+    h1 {
+        font-size: 1.75rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    h3 {
+        font-size: 1.25rem;
+    }
+}
+
+/* ===================================
+   Print Styles
+   =================================== */
+@media print {
+    body {
+        background: white;
+    }
+
+    .no-print {
+        display: none !important;
+    }
+}
+
+/* Global Snackbar Styles */
+.success-snackbar {
+    --mdc-snackbar-container-color: linear-gradient(135deg, #4caf50, #2e7d32);
+    --mdc-snackbar-supporting-text-color: white;
+
+    .mdc-snackbar__surface {
+        background: linear-gradient(135deg, #4caf50, #2e7d32) !important;
+        box-shadow: 0 4px 20px rgba(76, 175, 80, 0.4);
+        border-radius: 8px;
+    }
+
+    .mat-mdc-snack-bar-label {
+        font-weight: 500;
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        /* Removed pseudo-element to prevent double tick if the component adds one */
+    }
+
+    .mat-mdc-snack-bar-action {
+        color: white !important;
+        font-weight: bold;
+    }
+}
+
+.error-snackbar {
+    --mdc-snackbar-container-color: linear-gradient(135deg, #f44336, #c62828);
+    --mdc-snackbar-supporting-text-color: white;
+
+    .mdc-snackbar__surface {
+        background: linear-gradient(135deg, #f44336, #c62828) !important;
+        box-shadow: 0 4px 20px rgba(244, 67, 54, 0.4);
+        border-radius: 8px;
+    }
+
+    .mat-mdc-snack-bar-label {
+        font-weight: 500;
+        font-size: 1rem;
+    }
+
+    .mat-mdc-snack-bar-action {
+        color: white !important;
+    }
+}

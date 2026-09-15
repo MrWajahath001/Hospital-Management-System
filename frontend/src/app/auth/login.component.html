@@ -1,0 +1,70 @@
+<div class="login-container">
+  <div class="login-card-wrapper">
+    <mat-card class="login-card">
+      <div class="login-header">
+        <div class="logo-container">
+          <mat-icon class="hospital-icon">local_hospital</mat-icon>
+        </div>
+        <h1 class="system-title">Hospital Management</h1>
+        <p class="system-subtitle">Secure Access Portal</p>
+      </div>
+
+      <mat-card-content class="login-content">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Username</mat-label>
+            <input matInput formControlName="username" placeholder="Enter your username">
+            <mat-icon matPrefix>person</mat-icon>
+            <mat-error *ngIf="loginForm.get('username')?.invalid">Username is required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Password</mat-label>
+            <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password"
+              placeholder="Enter your password">
+            <mat-icon matPrefix>lock</mat-icon>
+            <button mat-icon-button matSuffix (click)="togglePasswordVisibility()" type="button"
+              class="password-toggle">
+              <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-error *ngIf="loginForm.get('password')?.invalid">Password is required</mat-error>
+          </mat-form-field>
+
+          <div class="forgot-password-link">
+            <a (click)="onForgotPassword()" class="forgot-link">Forgot Password?</a>
+          </div>
+
+          <div *ngIf="error" class="error-message">
+            <mat-icon>error_outline</mat-icon>
+            <span>{{ error }}</span>
+          </div>
+
+          <button mat-raised-button color="primary" type="submit" class="login-button"
+            [disabled]="loading || loginForm.invalid">
+            <span *ngIf="!loading">Sign In</span>
+            <span *ngIf="loading">Signing in...</span>
+          </button>
+        </form>
+
+        <div class="login-footer">
+          <p class="demo-credentials">Demo Credentials:</p>
+          <div class="credentials-grid">
+            <div class="credential-item">
+              <strong>Admin:</strong> admin / admin123
+            </div>
+            <div class="credential-item">
+              <strong>Doctor:</strong> doctor_cardio / doc123
+            </div>
+            <div class="credential-item">
+              <strong>Patient:</strong> patient_john / pat123
+            </div>
+          </div>
+
+          <div class="register-link">
+            <p>Don't have an account? <a routerLink="/register">Register Now</a></p>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

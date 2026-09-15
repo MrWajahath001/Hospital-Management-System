@@ -1,0 +1,177 @@
+﻿<div class="dashboard-content">
+    <div class="header-row">
+        <h1 class="page-title">Doctor Dashboard</h1>
+        <button mat-stroked-button color="warn" (click)="clearHistory()" *ngIf="appointments.length > 0">
+            <mat-icon>delete_sweep</mat-icon> Clear All History
+        </button>
+    </div>
+
+    <!-- Error Banner -->
+    <div class="error-banner" *ngIf="loadError">
+        <mat-icon>error_outline</mat-icon>
+        <span>{{loadError}}</span>
+        <button mat-button (click)="loadAppointments()">Retry</button>
+    </div>
+
+    <div class="main-grid">
+        <!-- Left Column: Appointment List -->
+        <div class="appointments-column">
+            <h2 class="section-title">Appointments ({{appointments.length}})</h2>
+
+            <!-- Loading State -->
+            <div class="loading-card" *ngIf="isLoading">
+                <mat-spinner diameter="40"></mat-spinner>
+                <p>Loading appointments...</p>
+            </div>
+
+            <div class="appointment-cards" *ngIf="!isLoading">
+                <div *ngFor="let appt of appointments" class="appointment-card"
+                    [class.selected]="selectedAppointment?.id === appt.id" (click)="selectAppointment(appt)">
+
+                    <div class="card-status-strip" [class]="appt.status.toLowerCase()"></div>
+
+                    <div class="card-body">
+                        <div class="patient-name">
+                            <mat-icon>person</mat-icon>
+                            {{appt.patient?.user?.fullName || 'Unknown Patient'}}
+                        </div>
+                        <div class="time-slot">
+                            <mat-icon>access_time</mat-icon>
+                            {{appt.appointmentTime | date:'mediumDate'}} | {{appt.appointmentTime | date:'shortTime'}}
+                        </div>
+                        <div class="status-chip" [class]="appt.status.toLowerCase()">
+                            {{appt.status}}
+                        </div>
+                    </div>
+
+                    <div class="card-action" *ngIf="appt.status === 'APPROVED'">
+                        <mat-icon>chevron_right</mat-icon>
+                    </div>
+                </div>
+
+                <div *ngIf="appointments.length === 0" class="no-data-card">
+                    <mat-icon>event_busy</mat-icon>
+                    <p>No appointments scheduled.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column: Consultation & History -->
+        <div class="consultation-column">
+            <mat-card class="detail-card" *ngIf="selectedAppointment; else noSelection">
+                <mat-card-header class="consultation-header">
+                    <mat-icon mat-card-avatar color="primary">medical_services</mat-icon>
+                    <mat-card-title>Consultation</mat-card-title>
+                    <mat-card-subtitle>
+                        Patient: <strong>{{selectedAppointment.patient?.user?.fullName}}</strong>
+                    </mat-card-subtitle>
+                </mat-card-header>
+
+                <mat-card-content>
+                    <mat-tab-group animationDuration="0ms">
+                        <mat-tab label="New Consultation">
+                            <div class="tab-content">
+                                <div class="appointment-meta">
+                                    <div class="meta-item">
+                                        <span class="label">Date:</span>
+                                        <span class="value">{{selectedAppointment.appointmentTime | date:'fullDate'}}</span>
+                                    </div>
+                                    <div class="meta-item">
+                                        <span class="label">Time:</span>
+                                        <span class="value">{{selectedAppointment.appointmentTime | date:'shortTime'}}</span>
+                                    </div>
+                                    <div class="meta-item">
+                                        <span class="label">Status:</span>
+                                        <span class="status-chip" [class]="selectedAppointment.status.toLowerCase()">
+                                            {{selectedAppointment.status}}
+                                        </span>
+                                    </div>
+                                    <div class="meta-item full-row" *ngIf="selectedAppointment.notes">
+                                        <span class="label">Patient Notes:</span>
+                                        <p class="notes-text">{{selectedAppointment.notes}}</p>
+                                    </div>
+                                </div>
+
+                                <!-- Warning for non-approved appointments -->
+                                <div class="status-warning" *ngIf="selectedAppointment.status !== 'APPROVED'">
+                                    <mat-icon>info</mat-icon>
+                                    <span>This appointment is <strong>{{selectedAppointment.status}}</strong>. Only APPROVED appointments can be completed. Contact admin to approve it.</span>
+                                </div>
+
+                                <mat-divider class="my-3"></mat-divider>
+
+                                <form [formGroup]="recordForm" (ngSubmit)="completeAppointment()" class="record-form">
+                                    <mat-form-field appearance="outline" class="full-width">
+                                        <mat-label>Diagnosis</mat-label>
+                                        <textarea matInput formControlName="diagnosis" rows="3"
+                                            placeholder="Enter clinical diagnosis..."
+                                            [disabled]="selectedAppointment.status !== 'APPROVED'"></textarea>
+                                        <mat-icon matSuffix>assignment</mat-icon>
+                                        <mat-error *ngIf="recordForm.get('diagnosis')?.hasError('required')">
+                                            Diagnosis is required
+                                        </mat-error>
+                                    </mat-form-field>
+
+                                    <mat-form-field appearance="outline" class="full-width">
+                                        <mat-label>Prescription</mat-label>
+                                        <textarea matInput formControlName="prescription" rows="5"
+                                            placeholder="Prescribed medicines & dosage..."
+                                            [disabled]="selectedAppointment.status !== 'APPROVED'"></textarea>
+                                        <mat-icon matSuffix>healing</mat-icon>
+                                        <mat-error *ngIf="recordForm.get('prescription')?.hasError('required')">
+                                            Prescription is required
+                                        </mat-error>
+                                    </mat-form-field>
+
+                                    <div class="form-actions">
+                                        <button mat-raised-button color="primary" type="submit"
+                                            [disabled]="recordForm.invalid || isSubmitting || selectedAppointment.status !== 'APPROVED'">
+                                            <mat-spinner diameter="18" *ngIf="isSubmitting" class="btn-spinner"></mat-spinner>
+                                            <mat-icon *ngIf="!isSubmitting">check_circle</mat-icon>
+                                            {{isSubmitting ? 'Saving...' : 'Complete & Save'}}
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </mat-tab>
+
+                        <mat-tab label="Patient History">
+                            <div class="tab-content history-tab">
+                                <div *ngIf="patientHistory.length === 0" class="no-history">
+                                    <mat-icon>history_toggle_off</mat-icon>
+                                    <p>No previous medical records found for this patient.</p>
+                                </div>
+
+                                <mat-accordion class="history-accordion" multi>
+                                    <mat-expansion-panel *ngFor="let record of patientHistory">
+                                        <mat-expansion-panel-header>
+                                            <mat-panel-title>
+                                                {{record.recordDate | date:'mediumDate'}}
+                                            </mat-panel-title>
+                                            <mat-panel-description>
+                                                Dr. {{record.doctor?.user?.fullName || 'Unknown'}}
+                                            </mat-panel-description>
+                                        </mat-expansion-panel-header>
+
+                                        <div class="history-detail">
+                                            <p><strong>Diagnosis:</strong> {{record.diagnosis}}</p>
+                                            <p><strong>Prescription:</strong> {{record.prescription}}</p>
+                                        </div>
+                                    </mat-expansion-panel>
+                                </mat-accordion>
+                            </div>
+                        </mat-tab>
+                    </mat-tab-group>
+                </mat-card-content>
+            </mat-card>
+
+            <ng-template #noSelection>
+                <div class="empty-state-card">
+                    <mat-icon class="large-icon">touch_app</mat-icon>
+                    <h2>Ready to Consult</h2>
+                    <p>Select an appointment from the left to view details and start consultation.</p>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+</div>

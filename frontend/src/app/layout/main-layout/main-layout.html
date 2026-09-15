@@ -1,0 +1,57 @@
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+        [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
+
+        <div class="sidebar-header">
+            <mat-icon class="sidebar-logo">local_hospital</mat-icon>
+            <h2 class="sidebar-title">HMS</h2>
+        </div>
+
+        <mat-nav-list class="nav-list">
+            <a mat-list-item *ngIf="userRole === 'ADMIN'" routerLink="/admin" routerLinkActive="active-link"
+                class="nav-item">
+                <mat-icon matListItemIcon>dashboard</mat-icon>
+                <span matListItemTitle>Admin Dashboard</span>
+            </a>
+            <a mat-list-item *ngIf="userRole === 'DOCTOR'" routerLink="/doctor" routerLinkActive="active-link"
+                class="nav-item">
+                <mat-icon matListItemIcon>medical_services</mat-icon>
+                <span matListItemTitle>Doctor Dashboard</span>
+            </a>
+            <a mat-list-item *ngIf="userRole === 'PATIENT'" routerLink="/patient" routerLinkActive="active-link"
+                class="nav-item">
+                <mat-icon matListItemIcon>person</mat-icon>
+                <span matListItemTitle>Patient Dashboard</span>
+            </a>
+
+            <mat-divider class="nav-divider"></mat-divider>
+
+            <a mat-list-item (click)="logout()" class="nav-item logout-item">
+                <mat-icon matListItemIcon>logout</mat-icon>
+                <span matListItemTitle>Logout</span>
+            </a>
+        </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+        <mat-toolbar class="top-toolbar">
+            <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
+                *ngIf="isHandset$ | async" class="menu-button">
+                <mat-icon>menu</mat-icon>
+            </button>
+            <span class="toolbar-title">Hospital Management System</span>
+            <span class="toolbar-spacer"></span>
+            <span class="user-info">{{ userName }} ({{ userRole }})</span>
+            <button mat-icon-button class="toolbar-icon-button">
+                <mat-icon>notifications</mat-icon>
+            </button>
+            <button mat-icon-button class="toolbar-icon-button">
+                <mat-icon>account_circle</mat-icon>
+            </button>
+        </mat-toolbar>
+
+        <div class="content-container">
+            <router-outlet></router-outlet>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>
